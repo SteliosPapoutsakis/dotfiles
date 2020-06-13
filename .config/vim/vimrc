@@ -1,61 +1,51 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required <<========== We can turn it on later
-"set vars to make files located in .config/vim directoy 
-set runtimepath+=~/.config/vim,~/.config/vim/after
+set nocompatible              
+filetype off                 
+set runtimepath+=~/.config/vim,~/.config/vim/after " 
 set viminfo+=n~/.config/vim/viminfo
-set backupdir=~/.config/vim/backup//,.,~/tmp,~/
+set backupdir=~/.config/vim/backup//,.,~/tmp,~/   
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.config/vim/bundle/Vundle.vim
 call vundle#begin('~/.config/vim/bundle')
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
+
+" Plugins
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'valloric/YouCompleteMe'
 Plugin 'frazrepo/vim-rainbow'
-" <============================================>
-" Specify the plugins you want to install here.
-" We'll come on that later
-" <============================================>
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-" Put the rest of your .vimrc file here
+
+call vundle#end()          
+filetype plugin indent on  
+
+"-----------------------------------------------------
+" General
+"-----------------------------------------------------
+set autoindent 		" newlines match indent
+set smartindent 	" inset tab stop number of spaces
+set shiftwidth=4 	" 4 space shift
+set smarttab     	" inset tab stop number of space on tab
+set tabstop=4    	" tab  4 spaces
+set relativenumber 	" shows relative number of lines based on current line
+set number 			" shows line number
+set wildmenu 		" command line tab complete as menu
+set lazyredraw 		" don't update screen screee during script execution 
+set showmatch		" shows matching { or (
+set incsearch		" shows partial matches
+
+colorscheme badwolf 
+syntax on			 
+
+"-----------------------------------------------------
+" Key bindings
+"-----------------------------------------------------
+:imap ii <Esc> 
+
+"-----------------------------------------------------
+" Plug in options 
+"-----------------------------------------------------
+
+" YCM
+set completeopt=longest,menuone  " turns off the perview window for YCM
 
 
-" plugin options
-
-" turns off the perview window for YCM
-set completeopt=longest,menuone
-
-" for ranbow pars
-let g:rainbow_active = 1
-
-" other options
-:imap ii <Esc>
-set autoindent
-set smartindent
-set shiftwidth=4
-set smarttab
-set tabstop=4
-set relativenumber
-set wildmenu
-set lazyredraw
-set showmatch
-set incsearch
-
-colorscheme badwolf
-syntax on
-
+" Vim Rainbow
+let g:rainbow_active = 1		" turn on for all files
