@@ -11,7 +11,7 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias nil='/dev/null'
-alias config='/usr/bin/git --git-dir=$HOME/side_projects/config_repo/ --work-tree=$HOME'
+alias config='/usr/bin/git --git-dir=$HOME/side_projects/myconfig/ --work-tree=$HOME'
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 # set a new alias for cd which runs cd and does an ls
@@ -29,8 +29,9 @@ NORM="[0m"
 
 
 ## Check for enviormental variable file
-if [ -f "/home/stelios/.config/ksh/kshvar" ]; then
-	source ~/.config/ksh/kshvar
+if [ -f "/home/stelios/.config/envrc" ]; then
+	source ~/.config/envrc
+
 fi
 
 
