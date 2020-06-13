@@ -1,0 +1,61 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required <<========== We can turn it on later
+"set vars to make files located in .config/vim directoy 
+set runtimepath+=~/.config/vim,~/.config/vim/after
+set viminfo+=n~/.config/vim/viminfo
+set backupdir=~/.config/vim/backup//,.,~/tmp,~/
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.config/vim/bundle/Vundle.vim
+call vundle#begin('~/.config/vim/bundle')
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'valloric/YouCompleteMe'
+Plugin 'frazrepo/vim-rainbow'
+" <============================================>
+" Specify the plugins you want to install here.
+" We'll come on that later
+" <============================================>
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+" Put the rest of your .vimrc file here
+
+
+" plugin options
+
+" turns off the perview window for YCM
+set completeopt=longest,menuone
+
+" for ranbow pars
+let g:rainbow_active = 1
+
+" other options
+:imap ii <Esc>
+set autoindent
+set smartindent
+set shiftwidth=4
+set smarttab
+set tabstop=4
+set relativenumber
+set wildmenu
+set lazyredraw
+set showmatch
+set incsearch
+
+colorscheme badwolf
+syntax on
+
