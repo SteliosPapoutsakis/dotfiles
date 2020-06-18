@@ -1,0 +1,16 @@
+# shorten some commands
+alias c=clear
+alias q=exit
+
+# used to backup my dotfiles
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+
+# add some color to commands!
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+alias ls='ls --color'
+
+# add copy paste ability on command line
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
