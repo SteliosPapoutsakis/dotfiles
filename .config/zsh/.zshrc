@@ -18,6 +18,7 @@ setopt autocd
 # tab auto complete:
 autoload -Uz compinit
 compinit
+zmodload zsh/complist
 zstyle ':completion:*' menu select
 setopt COMPLETE_Aliases
 _comp_options+=(globdots) # included hidden files
@@ -94,6 +95,13 @@ setopt PUSHD_MINUS
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
+
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
 
 # source syntax highlighting if it exists
 [ -f "$HOME/software/build/git/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && . "$HOME/software/build/git/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 
