@@ -1,26 +1,19 @@
-"       _                    
-"__   _(_)_ __ ___  _ __ ___ 
-"\ \ / / | '_ ` _ \| '__/ __|
-" \ V /| | | | | | | | | (__ 
-"  \_/ |_|_| |_| |_|_|  \___|
-"                            
-set nocompatible              
-filetype off                 
-set runtimepath+=~/.config/vim,~/.config/vim/after " 
-set viminfo+=n~/.config/vim/viminfo
-set backupdir=~/.config/vim/backup//,.,~/tmp,~/   
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.config/vim/bundle/Vundle.vim
-call vundle#begin('~/.config/vim/bundle')
 
+" install vim plug if not installed already, code via lukesmithxyz
+if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim"'))
+	echo "Downloading junegunn/vim-plug to manage plugins..."
+	silent !mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/
+	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim
+	autocmd VimEnter * PlugInstall
+endif 
 
-" Plugins
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'valloric/YouCompleteMe'
-Plugin 'frazrepo/vim-rainbow'
+call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
 
-call vundle#end()          
-filetype plugin indent on  
+Plug 'morhetz/gruvbox'
+Plug 'valloric/YouCompleteMe'
+Plug 'frazrepo/vim-rainbow'
+call plug#end()
+
 
 "-----------------------------------------------------
 " General
@@ -37,7 +30,8 @@ set lazyredraw 		" don't update screen screee during script execution
 set showmatch		" shows matching { or (
 set incsearch		" shows partial matches
 
-colorscheme badwolf 
+colorscheme gruvbox
+set bg=dark
 syntax on			 
 
 "-----------------------------------------------------

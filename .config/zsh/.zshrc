@@ -10,8 +10,8 @@
 
 # load colors and define prompt
 autoload -U colors && colors
-PS1=$'%B%F{1}[%F{3}%n%F{4}:%F{2}%~%F{1}] %F{5}\U279C%b%f '
-RPROMPT='%B%F{3}at %F{4}%M%F{2}%t%b%f'
+PS1='%B%F{1}[%F{3}%n%F{4}:%F{2}%~%F{1}] %F{5}$%b%f '
+RPROMPT='%B%F{4}@%M%b%f'
 # auto cd into typed directory
 setopt autocd
 

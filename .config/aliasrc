@@ -1,4 +1,7 @@
-# shorten some commands
+# use nvim instead of vim if present
+command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" vi="nvim"
+
+# shorten some command
 alias c=clear
 alias q=exit
 
