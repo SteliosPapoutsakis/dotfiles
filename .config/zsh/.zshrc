@@ -10,8 +10,8 @@
 
 # load colors and define prompt
 autoload -U colors && colors
-PS1='%B%F{1}[%F{3}%n%F{4}:%F{2}%~%F{1}] %F{5}$%b%f '
-RPROMPT='%B%F{4}@%M%b%f'
+PS1='%B%F{9}[%F{11}%n%F{4}:%F{4}%~%F{9}] %F{6}$%b%f '
+RPROMPT='%B%F{9}@%M%b%f'
 # auto cd into typed directory
 setopt autocd
 
@@ -33,8 +33,10 @@ HISTFILE=~/.cache/zsh/history
 
 # vim mode
 bindkey -v
-export KEYTIMEOUT=1
+export KEYTIMEOUT=20
 
+# keybindings
+bindkey -M viins 'ii'  vi-cmd-mode 
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -56,16 +58,6 @@ _fix_cursor() {
 precmd_functions+=(_fix_cursor)
 
 zle -N zle-keymap-select
-
-
-# used to go make cursor go back to normal mode
-zle-line-finish() {
-	echo -ne '\e[1 q'
-}
-
-zle -N zle-line-finish
-
-
 
 
 # code for code stack, used to quickly cd into directories 
