@@ -18,3 +18,8 @@ alias egrep='egrep --color=auto' \
 # add copy paste ability on command line
 alias copy='xclip -selection clipboard' \
 	paste='xclip -selection clipboard -o'
+
+# some quick cd commands to key directories
+alias pf='cd /home/stelios/personal-files' \
+	sw='cd /home/stelios/software'	\
+	dw='cd /home/stelios/personal-files/downloads'
