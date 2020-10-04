@@ -16,7 +16,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
 export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
 export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/npm/npmrc"
-export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+export GNUPGHOME="${XDG_DATA_HOME:-$HOME/.local/share}"/gnupg
 
 #unset VIMINIT, not sure where this is being set
 unset VIMINIT
