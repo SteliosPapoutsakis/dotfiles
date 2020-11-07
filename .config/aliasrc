@@ -22,4 +22,6 @@ alias copy='xclip -selection clipboard' \
 # some quick cd commands to key directories
 alias pf='cd /home/stelios/personal-files' \
 	sw='cd /home/stelios/software'	\
-	dw='cd /home/stelios/personal-files/downloads'
+	dw='cd /home/stelios/personal-files/downloads'\
+	dt='cd /home/stelios/personal-files/desktop'\
+	dc='cd /home/stelios/personal-files/docs'

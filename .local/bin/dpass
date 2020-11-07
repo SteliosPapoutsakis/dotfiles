@@ -8,6 +8,6 @@ PASS=/usr/bin/pass
 PASS_FILE=$({ cd $PASSWORD_STORE_DIR ; find . -not -path './\.*' -type f ; } | cut -c3- \
 	| dmenu -i -l 20 )
 
-[ -n "$PASS_FILE" ] && $PASS -c  ${PASS_FILE%.gpg} && notify-send "Copied"
+[ -n "$PASS_FILE" ] && $PASS -c  ${PASS_FILE%.gpg} && notify-send --expire-time=3000 "Copied"
 
 
