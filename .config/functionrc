@@ -1,0 +1,80 @@
+#
+# file contains functions for my use
+#
+
+# function to print debug_my_func statments
+# input args are 1 = function_name, 2 = message, 3 = debug flag
+debug_my_func() {
+	[ -n $3 ] && echo "$1: $2" 
+}
+
+# archives and compresses a list of files with tar
+# default compress algo is bzip, if first param is '-gz'
+# if files is >5GB, compress with parallel version if avalible
+cmps() {
+	local TAR=/bin/tar
+	local DU=/usr/bin/du
+	local COMPRESSION=
+	local CHANGE_DIR=
+	local ARCHIVE_NAME=
+	local TAR_OPTIONS=
+	local DEBUG=1
+	
+	while [ ! -e $1  ]; do 
+		case $1 in
+			-z|*z*)
+				COMPRESSION='-I gzip'
+				debug_my_func $0 "Compression changed to gzip" $DEBUG 	
+			;;
+			*j*|-j)
+				COMPRESSION='-I bzip2'
+				debug_my_func $0 "Compression changed to bzip2" $DEBUG 	
+			;;
+			-C)
+				shift
+				CHANGE_DIR="-C $1"
+				debug_my_func $0 "Change dir changed to $1" $DEBUG 	
+			;;
+			*f*|-f)
+				shift
+				ARCHIVE_NAME="-f $1"
+			    debug_my_func $0 "Archive name is $1" $DEBUG 	
+			;;
+
+			*)
+				echo "cmps: unrecognized option \"${input}\""
+				return
+			;;
+		esac
+		shift
+	done
+
+	local TOTAL_SIZE=$($DU -c $@ | tail -1 | cut -f 1)
+	local EXTENSION=
+	debug_my_func $0 "Total size of files is $TOTAL_SIZE" $DEBUG 	
+    
+	case ${COMPRESSION:-$1} in 
+		'-I gzip'|*.gz)
+			[ $TOTAL_SIZE -gt 5000000 ] && [ command -v pigz ] && COMPRESSION='-I pigz'
+			EXTENSION=.tae|.gz
+		;;
+		'-I bzip2'|*.bz2)
+			[ $TOTAL_SIZE -gt 5000000 ] && [ command -v pbzip2 ] && COMPRESSION='-I pbzip2' 
+			EXTENSION=.tar.bz2
+		;;
+	esac
+
+	debug_my_func $0 "Compression flag is now $COMPRESSION" $DEBUG 	
+    debug_my_func $0 "Extension for file is $EXTENSION" $DEBUG 	
+
+	if $(grep -q '.tar' <(echo $1))  ; then
+		TAR_OPTIONS="x $CHANGE_DIR $COMPRESSION -f $@"
+	else
+		{ grep -q "$EXTENSION" <(echo $ARCHIVE_NAME) } && EXTENSION=
+		TAR_OPTIONS="c ${ARCHIVE_NAME}${EXTENSION} $CHANGE_DIR $COMPRESSION $@"
+	fi
+	debug_my_func $0 "Tar options are now $TAR_OPTIONS" $DEBUG 	
+
+	echo "$TAR $TAR_OPTIONS"
+	$TAR $TAR_OPTIONS
+}
