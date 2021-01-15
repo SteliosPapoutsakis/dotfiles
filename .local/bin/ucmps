@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+# Quick uncompression wrapper script for tar
+# This wrapper correctly identifies compression algo based on extension 
+# and if the total archive is >5GB will use the parallel version 
+# of either bzip2 or gzip
+#
+#  Stelios
+#
+
+TAR_BIN=/bin/tar
+DU=/usr/bin/du
+CHANGEDIRARGS=
+
+while [ -n "$1" ] ; do
+	case "$1" in
+		-C)
+			shift
+   			CHANGEDIRARGS=$1
+		;;
+		*.tar.bz2)
+			COMPRESSIONARG=bzip2
+			TOTAL_SIZE=$( { cd ${CHANGEDIRARGS:-'.'} ; $DU -c $@ ; }| tail -1 | cut -f 1)
+			[ $? -eq 0 ] || exit 1
+			[ $TOTAL_SIZE -gt 5000000 ] &&  command -v pbzip2>/dev/null  && COMPRESSIONARG=pbzip2 
+			$TAR_BIN x ${CHANGEDIRARGS:+-C "$CHANGEDIRARGS"} f "$1" -I $COMPRESSIONARG 		
+		;;
+		*.tar.gz)
+			COMPRESSIONARG=gzip
+			TOTAL_SIZE=$( { cd ${CHANGEDIRARGS:-'.'} ; $DU -c $@ ; }| tail -1 | cut -f 1)
+			[ $? -eq 0 ] || exit 1
+			[ $TOTAL_SIZE -gt 5000000 ] &&  command -v pbzip2>/dev/null  && COMPRESSIONARG=pigz 
+			$TAR_BIN x ${CHANGEDIRARGS:+-C "$CHANGEDIRARGS"} -f "$1" -I $COMPRESSIONARG 		
+		;;
+
+		*.tar)
+			[ -e $ARG ] || { printf "Error: \"%s\" doesn't exist\n" "$ARG" ; exit 1 ; }
+			
+			$TAR_BIN x ${CHANGEDIRARGS:+-C "$CHANGEDIRARGS"} -f "$1" 		
+		;;
+		*)
+			printf "Error: \"%s\" is not a valid command\n" "$ARG"
+			exit 1
+	esac
+	shift
+done
+
