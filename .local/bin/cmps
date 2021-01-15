@@ -1,0 +1,87 @@
+#!/bin/sh
+#
+# Quick compression wrapper script for tar
+# This wrapper correctly adds file extension to archive name
+# and if the total archive is >5GB will use the parallel version 
+# of either bzip2 or gzip
+#
+#  Stelios
+#
+
+DEBUG=1
+_debug() {
+	[ -n "$DEBUG" ] && printf "DEBUG: $1\n" 
+}
+
+TAR_BIN=/bin/tar
+DU=/usr/bin/du
+COMPRESSIONARG=
+CHANGEDIRARGS=
+ARCHNAMEARG=
+
+for CHAR in $(echo $1 | sed 's/.\{1\}/& /g') ; do
+   case $CHAR in
+   	z)
+   		COMPRESSIONARG=gzip
+   		_debug  "Compression changed to gzip" 
+   	;;
+   	j)
+   		COMPRESSIONARG=bzip2
+   		_debug  "Compression changed to bzip2" 
+   	;;
+   	f)
+   		shift
+   		ARCHNAMEARG=$1
+       	_debug  "Archive name is $1" 
+   	;;
+   	*)
+   		printf "Unknown option \"$CHAR\""
+   		return 1
+   	;;
+   esac
+done
+[ -n "$ARCHNAMEARG" ] || { printf "Please provide an archive name\n" ; exit 1 ; }
+shift
+
+
+while true ; do 
+   case $1 in 
+   	-C)
+   		shift
+   		CHANGEDIRARGS=$1
+   		_debug "Change dir changed to $1"  	
+   	;;
+   	*)
+   		break
+   	;;
+   esac
+   shift
+done
+
+[ "$*" ] || { printf "Please provide files to archive\n" ; exit 1 ; } 
+
+TOTAL_SIZE=$( { cd ${CHANGEDIRARGS:-'.'} ; $DU -c $@ ; }| tail -1 | cut -f 1)
+
+EXTENSIONARG=
+_debug "Total size of files is $TOTAL_SIZE" 
+
+case ${COMPRESSIONARG} in 
+   gzip)
+   	[ $TOTAL_SIZE -gt 5000000 ] &&  command -v pigz>/dev/null  && COMPRESSIONARG=pigz
+   	EXTENSIONARG=.tar.gz 
+   ;;
+   bzip2)
+   	[ $TOTAL_SIZE -gt 5000000 ] &&  command -v pbzip2>/dev/null  && COMPRESSIONARG=pbzip2  
+   	EXTENSIONARG=.tar.bz2 
+   ;;
+   *) 
+   	EXTENSIONARG=.tar
+   ;;
+esac
+_debug "Compression flag is now $COMPRESSIONARG" 
+_debug "Extension for file is $EXTENSIONARG" 
+_debug "Archive Name is $ARCHNAMEARG" 
+
+_debug "$TAR_BIN -c -f ${ARCHNAMEARG}${EXTENSIONARG} ${COMPRESSIONARG:+-I "$COMPRESSIONARG"} ${CHANGEDIRARGS:+-C "$CHANGEDIRARGS"} $*" 
+
+$TAR_BIN -c -f ${ARCHNAMEARG}${EXTENSIONARG} ${COMPRESSIONARG:+-I "$COMPRESSIONARG"} ${CHANGEDIRARGS:+-C "$CHANGEDIRARGS"} "$@"
