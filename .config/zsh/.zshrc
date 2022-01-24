@@ -97,3 +97,8 @@ bindkey -v '^?' backward-delete-char
 
 # source syntax highlighting if it exists
 [ -f "$HOME/software/build/git/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && . "$HOME/software/build/git/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 
+
+# lanch startx
+if [[ -z "${DISPLAY}" ]] && [[ "$(tty)" = '/dev/tty1'  ]]; then
+	exec startx
+fi
