@@ -10,7 +10,6 @@ endif
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
 
 Plug 'morhetz/gruvbox'
-Plug 'valloric/YouCompleteMe'
 Plug 'frazrepo/vim-rainbow'
 call plug#end()
 
