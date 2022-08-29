@@ -1,0 +1,12 @@
+# lock screen
+control + l
+	light-locker-command -l
+# shutdown
+control + Delete
+	sudo shutdown -h now
+# control brighness
+control + F6
+	brightness up 10
+control + F5
+	brightness down 10
+	
