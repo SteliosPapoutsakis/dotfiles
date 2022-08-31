@@ -18,4 +18,4 @@ control + b
 	dmenu-bluetooth
 # control volume
 control + {F1,F2,F3}
-	amixer -q set Master {0%,10%-,10%+}
+	amixer -q set Master {0%,5%-,5%+}
