@@ -5,8 +5,17 @@ control + l
 control + Delete
 	sudo shutdown -h now
 # control brighness
-control + F6
-	brightness up 10
-control + F5
-	brightness down 10
-	
+control + {F5, F6}
+	brightness {down,up} 10
+# launch web browser
+control + w
+	/usr/bin/chromium
+# get passwords
+control + p
+	~/.local/bin/dpass
+# bluetooth pair
+control + b
+	dmenu-bluetooth
+# control volume
+control + {F1,F2,F3}
+	amixer -q set Master {0%,10%-,10%+}

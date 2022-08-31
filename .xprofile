@@ -2,7 +2,7 @@
 xcompmgr & 
 
 # update status bar
-/home/stelios/software/build/git/dwm-bar/dwm_bar.sh &
+/home/stelios/software/fork/git/dwm-bar/dwm_bar.sh &
 
 # wall paper
 feh --bg-scale /home/stelios/personal-files/img/wallpaper.png
