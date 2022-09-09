@@ -1,21 +1,18 @@
 # lock screen
-control + l
+alt + l
 	light-locker-command -l
 # shutdown
-control + Delete
+alt + Delete
 	sudo shutdown -h now
 # control brighness
-control + {F5, F6}
+alt + {F5, F6}
 	brightness {down,up} 10
 # launch web browser
-control + w
+alt + w
 	/usr/bin/chromium
-# get passwords
-control + p
-	~/.local/bin/dpass
 # bluetooth pair
-control + b
+alt + b
 	dmenu-bluetooth
-# control volume
-control + {F1,F2,F3}
+# Alt volume
+alt + {F1,F2,F3}
 	amixer -q set Master {0%,5%-,5%+}

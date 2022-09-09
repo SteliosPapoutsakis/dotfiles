@@ -7,8 +7,8 @@ xcompmgr &
 # wall paper
 feh --bg-scale /home/stelios/personal-files/img/wallpaper.png
 
-# start key daemon
-/usr/bin/sxhkd &
-
 # screen locker
 light-locker &
+
+# shorcuts
+/usr/bin/sxhkd &
