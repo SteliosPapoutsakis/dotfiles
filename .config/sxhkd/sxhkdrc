@@ -1,4 +1,4 @@
-# lock screen
+#lock screen
 alt + l
 	light-locker-command -l
 # shutdown
@@ -16,3 +16,6 @@ alt + b
 # Alt volume
 alt + {F1,F2,F3}
 	amixer -q set Master {0%,5%-,5%+}
+# see wifi networks 
+alt + n
+	/usr/bin/wpa_gui
