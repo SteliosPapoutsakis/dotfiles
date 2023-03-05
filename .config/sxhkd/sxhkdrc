@@ -19,3 +19,6 @@ alt + {F1,F2,F3}
 # see wifi networks 
 alt + n
 	/usr/bin/wpa_gui
+# take screen shot
+alt + c
+	scrot '%m-%d-%Y_%H:%M:%S_screenshot.png' -e 'mv $f ~/personal-files/screenshots/'
